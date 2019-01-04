@@ -1,10 +1,18 @@
-import pytesseract as ocr
-import numpy as np
-import cv2
 import os
 import shutil
 
+import cv2
+import numpy as np
+import pytesseract as ocr
+
 from PIL import Image
+
+
+def main():
+    print("Starting Script")
+    files = listFiles()
+    for file in files:
+        print(convert(file))
 
 
 def convert(file, debug=False):
@@ -22,7 +30,7 @@ def convert(file, debug=False):
             im, 127, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
         binimagem = Image.fromarray(thresh)
-        if debug == True:
+        if debug is True:
             binimagem.show()
 
         phrase = ocr.image_to_string(binimagem, lang="por")
@@ -38,9 +46,15 @@ def convert(file, debug=False):
         return "File " + file + " not found"
 
 
-print(convert("images/2.jpg"))
-print(convert("images/IMG_6915.jpg"))
-print(convert("images/IMG_6916.jpg"))
-print(convert("images/IMG_6917.jpg"))
-print(convert("images/IMG_6919.jpg"))
-print(convert("images/IMG_6920.jpg"))
+def listFiles(dir="images"):
+    namefiles = []
+    files = os.listdir(dir)
+    for file in files:
+        if file.endswith(".jpg"):
+            namefiles.append("images/"+file)
+
+    return namefiles
+
+
+if __name__ == "__main__":
+    main()
