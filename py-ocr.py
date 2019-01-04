@@ -1,3 +1,9 @@
+"""
+OCR WITH PYTESSERACT
+Read the image files on images folder and
+writes the text on the codes.txt file
+"""
+
 import os
 import shutil
 
